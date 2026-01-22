@@ -1,6 +1,6 @@
 // Default configuration
 const defaultConfig = {
-  agency_name: 'NEXUS',
+  agency_name: 'BEY\'S PORTFOLIO',
   hero_title: 'Creamos experiencias digitales',
   hero_subtitle: 'Desarrollo web & diseño de vanguardia para marcas que quieren destacar en el mundo digital',
   about_text: 'Somos un equipo apasionado de diseñadores y desarrolladores comprometidos con crear experiencias digitales excepcionales. Combinamos creatividad con tecnología de vanguardia para impulsar el éxito de nuestros clientes.',
@@ -60,9 +60,17 @@ async function onConfigChange(cfg) {
   const navLogo = document.getElementById('nav-logo');
   const footerLogo = document.getElementById('footer-logo');
   const agencyName = config.agency_name || defaultConfig.agency_name;
-  const splitPoint = Math.ceil(agencyName.length / 2);
-  const firstPart = agencyName.substring(0, splitPoint);
-  const secondPart = agencyName.substring(splitPoint);
+  // If name contains a space, split by space; otherwise split in half
+  let firstPart, secondPart;
+  if (agencyName.includes(' ')) {
+    const spaceIndex = agencyName.lastIndexOf(' ');
+    firstPart = agencyName.substring(0, spaceIndex);
+    secondPart = agencyName.substring(spaceIndex + 1);
+  } else {
+    const splitPoint = Math.ceil(agencyName.length / 2);
+    firstPart = agencyName.substring(0, splitPoint);
+    secondPart = agencyName.substring(splitPoint);
+  }
 
   if (navLogo) {
     navLogo.innerHTML = `<span style="color: ${config.text_color || defaultConfig.text_color};">${firstPart}</span><span style="color: ${config.primary_action_color || defaultConfig.primary_action_color};">${secondPart}</span>`;
