@@ -5,7 +5,7 @@ const defaultConfig = {
   hero_title: 'Creamos experiencias digitales',
   hero_subtitle: 'Desarrollo web & diseño de vanguardia para marcas que quieren destacar en el mundo digital',
   about_text: 'Somos un equipo apasionado de diseñadores y desarrolladores comprometidos con crear experiencias digitales excepcionales. Combinamos creatividad con tecnología de vanguardia para impulsar el éxito de nuestros clientes.',
-  contact_email: 'hola@nexus.studio',
+  contact_email: 'beydafentanes.studio@gmail.com',
   background_color: '#ffffff',
   surface_color: '#fafafa',
   text_color: '#000000',
