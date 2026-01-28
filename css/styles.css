@@ -56,15 +56,16 @@ body {
 
 .service-card {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
 }
 
-.service-card:hover {
+/* .service-card:hover {
   transform: translateY(-8px);
 }
 
 .service-card:hover .service-icon {
   transform: scale(1.1) rotate(5deg);
-}
+} */
 
 .project-card {
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);

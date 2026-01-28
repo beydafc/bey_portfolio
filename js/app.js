@@ -3,8 +3,8 @@ const defaultConfig = {
   agency_name: 'BEY\'S PORTFOLIO',
   // HAY QUE CAMBIAR ESTAS VARIABLES ANTES DE HACERLO EN EL HTML PARA QUE SE VEAN REFLEJADOS LOS CAMBIOS
   hero_title: 'Creamos experiencias digitales',
-  hero_subtitle: 'Desarrollo web & diseño de vanguardia para marcas que quieren destacar en el mundo digital',
-  about_text: 'Somos un equipo apasionado de diseñadores y desarrolladores comprometidos con crear experiencias digitales excepcionales. Combinamos creatividad con tecnología de vanguardia para impulsar el éxito de nuestros clientes.',
+  hero_subtitle: 'Eleva tus ideas al siguiente nivel. Diseña, desarrolla y automatiza; nosotros lo hacemos posible',
+  about_text: 'El uso de la tecnología para mejorar los procesos y la calidad dentro de tu empresa es nuestra prioridad. Somos especialistas en llevar a cabo tu proyecto de inicio a fin ¡Tu idea, nuestro compromiso!',
   contact_email: 'beydafentanes.studio@gmail.com',
   background_color: '#ffffff',
   surface_color: '#fafafa',
@@ -276,9 +276,10 @@ if (statsSection) {
 
 function animateStats() {
   const stats = [
-    { element: document.querySelector('.py-20 .text-5xl'), target: 150, suffix: '+' },
-    { element: document.querySelectorAll('.py-20 .text-5xl')[1], target: 98, suffix: '%' },
-    { element: document.querySelectorAll('.py-20 .text-5xl')[2], target: 8, suffix: '+' }
+    { element: document.querySelector('.py-20 .text-5xl'), target: 7, suffix: '+' },
+    { element: document.querySelectorAll('.py-20 .text-5xl')[1], target: 100, suffix: '%' },
+    { element: document.querySelectorAll('.py-20 .text-5xl')[2], target: 30, suffix: '+' },
+    { element: document.querySelectorAll('.py-20 .text-5xl')[3], target: 2, suffix: '+' }
   ];
 
   stats.forEach(stat => {
@@ -377,31 +378,31 @@ document.addEventListener('mousemove', (e) => {
   });
 });
 
-// Add ripple effect to service cards
-document.querySelectorAll('.service-card').forEach(card => {
-  card.addEventListener('click', function(e) {
-    const ripple = document.createElement('div');
-    const rect = this.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+// Add ripple effect to service cards - DISABLED
+// document.querySelectorAll('.service-card').forEach(card => {
+//   card.addEventListener('click', function(e) {
+//     const ripple = document.createElement('div');
+//     const rect = this.getBoundingClientRect();
+//     const x = e.clientX - rect.left;
+//     const y = e.clientY - rect.top;
 
-    ripple.style.position = 'absolute';
-    ripple.style.left = x + 'px';
-    ripple.style.top = y + 'px';
-    ripple.style.width = '0';
-    ripple.style.height = '0';
-    ripple.style.borderRadius = '50%';
-    ripple.style.background = 'rgba(255, 49, 50, 0.3)';
-    ripple.style.transform = 'translate(-50%, -50%)';
-    ripple.style.animation = 'ripple-effect 0.6s ease-out';
+//     ripple.style.position = 'absolute';
+//     ripple.style.left = x + 'px';
+//     ripple.style.top = y + 'px';
+//     ripple.style.width = '0';
+//     ripple.style.height = '0';
+//     ripple.style.borderRadius = '50%';
+//     ripple.style.background = 'rgba(255, 49, 50, 0.3)';
+//     ripple.style.transform = 'translate(-50%, -50%)';
+//     ripple.style.animation = 'ripple-effect 0.6s ease-out';
 
-    this.style.position = 'relative';
-    this.style.overflow = 'hidden';
-    this.appendChild(ripple);
+//     this.style.position = 'relative';
+//     this.style.overflow = 'hidden';
+//     this.appendChild(ripple);
 
-    setTimeout(() => ripple.remove(), 600);
-  });
-});
+//     setTimeout(() => ripple.remove(), 600);
+//   });
+// });
 
 // Add ripple animation
 const style = document.createElement('style');
