@@ -192,21 +192,102 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// Form submission
+// Form submission with EmailJS
 const contactForm = document.getElementById('contact-form');
 const successMessage = document.getElementById('success-message');
+const submitBtn = document.getElementById('submit-btn');
+
+// Initialize EmailJS with credentials from config.js
+// Make sure config.js exists and has your EmailJS credentials
+if (typeof window.emailjsConfig === 'undefined') {
+  console.error('⚠️ config.js no encontrado. Por favor, crea js/config.js basándote en js/config.example.js');
+} else {
+  emailjs.init(window.emailjsConfig.publicKey);
+}
 
 if (contactForm) {
   contactForm.addEventListener('submit', function(e) {
     e.preventDefault();
-    contactForm.classList.add('hidden');
-    successMessage.classList.remove('hidden');
 
-    setTimeout(() => {
-      contactForm.classList.remove('hidden');
-      successMessage.classList.add('hidden');
-      contactForm.reset();
-    }, 3000);
+    // Show loading state
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `
+        <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <span>Enviando...</span>
+      `;
+    }
+
+    // Get form values
+    const formData = {
+      from_name: document.getElementById('name').value,
+      from_email: document.getElementById('email').value,
+      service: document.getElementById('service').value,
+      message: document.getElementById('message').value,
+      to_email: 'beydafentanes.studio@gmail.com'
+    };
+
+    // Send email using EmailJS
+    // Credentials are loaded from config.js (not in git for security)
+    if (!window.emailjsConfig || !window.emailjsConfig.serviceId || !window.emailjsConfig.templateId) {
+      alert('Error: Configuración de EmailJS no encontrada. Por favor, configura js/config.js');
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `
+          <span>Enviar Mensaje</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+          </svg>
+        `;
+      }
+      return;
+    }
+
+    emailjs.send(window.emailjsConfig.serviceId, window.emailjsConfig.templateId, formData)
+      .then(function(response) {
+        console.log('SUCCESS!', response.status, response.text);
+
+        // Show success message
+        contactForm.classList.add('hidden');
+        successMessage.classList.remove('hidden');
+
+        // Reset button
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = `
+            <span>Enviar Mensaje</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+          `;
+        }
+
+        // Reset form after 3 seconds
+        setTimeout(() => {
+          contactForm.classList.remove('hidden');
+          successMessage.classList.add('hidden');
+          contactForm.reset();
+        }, 3000);
+      }, function(error) {
+        console.log('FAILED...', error);
+
+        // Show error message
+        alert('Hubo un error al enviar el mensaje. Por favor, intenta nuevamente o contáctame directamente a beydafentanes.studio@gmail.com');
+
+        // Reset button
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = `
+            <span>Enviar Mensaje</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+          `;
+        }
+      });
   });
 }
 
@@ -327,42 +408,7 @@ document.querySelectorAll('.btn-primary').forEach(btn => {
   });
 });
 
-// Add loading state to form button
-const submitBtn = document.getElementById('submit-btn');
-if (submitBtn && contactForm) {
-  contactForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    // Show loading state
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = `
-      <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-      </svg>
-      <span>Enviando...</span>
-    `;
-
-    // Simulate form submission
-    setTimeout(() => {
-      contactForm.classList.add('hidden');
-      successMessage.classList.remove('hidden');
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = `
-        <span>Enviar Mensaje</span>
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-        </svg>
-      `;
-
-      setTimeout(() => {
-        contactForm.classList.remove('hidden');
-        successMessage.classList.add('hidden');
-        contactForm.reset();
-      }, 3000);
-    }, 1500);
-  });
-}
+// Form submission is handled above with EmailJS
 
 // Parallax effect for geometric shapes
 document.addEventListener('mousemove', (e) => {

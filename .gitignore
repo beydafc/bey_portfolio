@@ -1,0 +1,12 @@
+# Configuración sensible - NO SUBIR A GIT
+js/config.js
+
+# Dependencias
+node_modules/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
