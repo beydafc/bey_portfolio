@@ -222,10 +222,13 @@ if (contactForm) {
     }
 
     // Get form values
+    const serviceSelect = document.getElementById('service');
+    const serviceText = serviceSelect.options[serviceSelect.selectedIndex].text;
+
     const formData = {
       from_name: document.getElementById('name').value,
       from_email: document.getElementById('email').value,
-      service: document.getElementById('service').value,
+      service: serviceText, // Usa el texto visible en lugar del value
       message: document.getElementById('message').value,
       to_email: 'beydafentanes.studio@gmail.com'
     };
