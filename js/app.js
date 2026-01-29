@@ -417,5 +417,13 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+// Wisecost card click handler - show privacy alert
+const wisecostCard = document.getElementById('wisecost-card');
+if (wisecostCard) {
+  wisecostCard.addEventListener('click', function() {
+    alert('Por cuestiones de privacidad, esta página está restringida');
+  });
+}
+
 // Initial render
 onConfigChange(config);
