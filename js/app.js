@@ -34,7 +34,8 @@ async function onConfigChange(cfg) {
       heroTitle.innerHTML = `${titleParts[0]}<br><span class="text-stroke">${titleParts[1]}</span><br><span style="color: ${config.primary_action_color || defaultConfig.primary_action_color};">${titleParts.slice(2).join(' ') || 'digitales'}</span>`;
     }
     heroTitle.style.fontFamily = `${customFont}, ${syne}`;
-    heroTitle.style.fontSize = `${baseSize * 4.5}px`;
+    // Removed fixed fontSize to allow responsive Tailwind classes to work
+    // heroTitle.style.fontSize = `${baseSize * 4.5}px`;
   }
 
   const heroSubtitle = document.getElementById('hero-subtitle');
