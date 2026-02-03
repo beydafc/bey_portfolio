@@ -193,22 +193,33 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// Form submission with EmailJS
+// Form submission with Formspree
+// NO se necesitan credenciales en el código - todo está en el dashboard de Formspree
 const contactForm = document.getElementById('contact-form');
 const successMessage = document.getElementById('success-message');
 const submitBtn = document.getElementById('submit-btn');
 
-// Initialize EmailJS with credentials from config.js
-// Make sure config.js exists and has your EmailJS credentials
-if (typeof window.emailjsConfig === 'undefined') {
-  console.error('⚠️ config.js no encontrado. Por favor, crea js/config.js basándote en js/config.example.js');
-} else {
-  emailjs.init(window.emailjsConfig.publicKey);
-}
+// Obtener el endpoint de Formspree desde el atributo action del formulario
+// O configurarlo manualmente aquí si prefieres
+let formspreeEndpoint = null;
 
 if (contactForm) {
+  // Intentar obtener el endpoint del atributo action del formulario
+  formspreeEndpoint = contactForm.getAttribute('action');
+
+  // Si no hay action, usar uno por defecto (debes reemplazarlo)
+  if (!formspreeEndpoint || formspreeEndpoint.includes('YOUR_FORM_ID')) {
+    console.warn('⚠️ Formspree endpoint no configurado. Por favor, actualiza el atributo action del formulario en index.html');
+    formspreeEndpoint = null;
+  }
+
   contactForm.addEventListener('submit', function(e) {
     e.preventDefault();
+
+    if (!formspreeEndpoint) {
+      alert('Error: Formspree no está configurado. Por favor, configura tu endpoint en index.html');
+      return;
+    }
 
     // Show loading state
     if (submitBtn) {
@@ -226,34 +237,24 @@ if (contactForm) {
     const serviceSelect = document.getElementById('service');
     const serviceText = serviceSelect.options[serviceSelect.selectedIndex].text;
 
-    const formData = {
-      from_name: document.getElementById('name').value,
-      from_email: document.getElementById('email').value,
-      service: serviceText, // Usa el texto visible en lugar del value
-      message: document.getElementById('message').value,
-      to_email: 'beydafentanes.studio@gmail.com'
-    };
+    // Preparar datos para Formspree
+    // Formspree espera los campos con sus nombres originales
+    const formData = new FormData();
+    formData.append('name', document.getElementById('name').value);
+    formData.append('email', document.getElementById('email').value); // Requerido por Formspree
+    formData.append('service', serviceText);
+    formData.append('message', document.getElementById('message').value);
 
-    // Send email using EmailJS
-    // Credentials are loaded from config.js (not in git for security)
-    if (!window.emailjsConfig || !window.emailjsConfig.serviceId || !window.emailjsConfig.templateId) {
-      alert('Error: Configuración de EmailJS no encontrada. Por favor, configura js/config.js');
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = `
-          <span>Enviar Mensaje</span>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-          </svg>
-        `;
+    // Enviar a Formspree
+    fetch(formspreeEndpoint, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
       }
-      return;
-    }
-
-    emailjs.send(window.emailjsConfig.serviceId, window.emailjsConfig.templateId, formData)
-      .then(function(response) {
-        console.log('SUCCESS!', response.status, response.text);
-
+    })
+    .then(response => {
+      if (response.ok) {
         // Show success message
         contactForm.classList.add('hidden');
         successMessage.classList.remove('hidden');
@@ -275,23 +276,30 @@ if (contactForm) {
           successMessage.classList.add('hidden');
           contactForm.reset();
         }, 3000);
-      }, function(error) {
-        console.log('FAILED...', error);
+      } else {
+        return response.json().then(data => {
+          if (data.errors) {
+            throw new Error(data.errors.map(err => err.message).join(', '));
+          }
+          throw new Error('Error al enviar el formulario');
+        });
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Hubo un error al enviar el mensaje. Por favor, intenta nuevamente o contáctame directamente a beydafentanes.studio@gmail.com');
 
-        // Show error message
-        alert('Hubo un error al enviar el mensaje. Por favor, intenta nuevamente o contáctame directamente a beydafentanes.studio@gmail.com');
-
-        // Reset button
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = `
-            <span>Enviar Mensaje</span>
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-            </svg>
-          `;
-        }
-      });
+      // Reset button
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `
+          <span>Enviar Mensaje</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+          </svg>
+        `;
+      }
+    });
   });
 }
 
@@ -412,7 +420,7 @@ document.querySelectorAll('.btn-primary').forEach(btn => {
   });
 });
 
-// Form submission is handled above with EmailJS
+// Form submission is handled above with Formspree
 
 // Parallax effect for geometric shapes
 document.addEventListener('mousemove', (e) => {
