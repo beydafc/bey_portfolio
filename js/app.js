@@ -372,7 +372,7 @@ function animateStats() {
     { element: document.querySelector('.py-20 .text-5xl'), target: 7, suffix: '+' },
     { element: document.querySelectorAll('.py-20 .text-5xl')[1], target: 100, suffix: '%' },
     { element: document.querySelectorAll('.py-20 .text-5xl')[2], target: 30, suffix: '+' },
-    { element: document.querySelectorAll('.py-20 .text-5xl')[3], target: 2, suffix: '+' }
+    { element: document.querySelectorAll('.py-20 .text-5xl')[3], target: 2, suffix: '-' }
   ];
 
   stats.forEach(stat => {
