@@ -1,0 +1,18 @@
+# Beyda Fentanes Portfolio
+
+> Portafolio de Beyda Fentanes: desarrollo web, diseño UI/UX, branding y soluciones digitales a la medida en Querétaro, México.
+
+Sitio oficial con proyectos reales de e-commerce, páginas web corporativas, software y diseño digital. Contacto: beydafentanes.studio@gmail.com · +52 442 506 6096.
+
+## Páginas
+
+- [Inicio](https://www.beydafentanes.com/): Portafolio completo — servicios, proyectos, sobre mí y contacto
+- [Servicios](https://www.beydafentanes.com/#servicios): Desarrollo web, diseño UI/UX, branding y soluciones digitales a la medida
+- [Proyectos](https://www.beydafentanes.com/#proyectos): Casos destacados (Viñedo de Piedra, CADEQ, Shawarma House, YEYO, V&P, Wisecost, Almasol)
+- [Quiénes somos](https://www.beydafentanes.com/#nosotros): Enfoque, stack y capacidades (full-stack, Rails/Flutter, IA, Figma, SEO)
+- [Contacto](https://www.beydafentanes.com/#contacto): Formulario y datos de contacto
+
+## Recursos
+
+- [Sitemap](https://www.beydafentanes.com/sitemap.xml): Mapa del sitio para indexación
+- [robots.txt](https://www.beydafentanes.com/robots.txt): Reglas de rastreo

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.beydafentanes.com/sitemap.xml
+
+# Resumen para modelos de IA / LLM
+# https://www.beydafentanes.com/llms.txt
