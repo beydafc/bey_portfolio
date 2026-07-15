@@ -212,16 +212,17 @@ body {
 }
 
 .hero-title {
-  font-size: clamp(1.85rem, 8.4vw + 0.35rem, 6rem);
+  font-size: clamp(2.75rem, 12vw, 6rem);
   max-width: 100%;
   word-break: keep-all;
   overflow-wrap: normal;
+  letter-spacing: -0.03em;
 }
 
 .text-stroke {
   display: inline-block;
   max-width: 100%;
-  padding-inline: 0.12em;
+  padding-inline: 0.08em;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
   -webkit-text-stroke: 1px #111;
@@ -229,8 +230,8 @@ body {
   paint-order: stroke fill;
 }
 
-@media (max-width: 380px) {
+@media (max-width: 360px) {
   .hero-title {
-    font-size: clamp(1.7rem, 8vw, 2.4rem);
+    font-size: 2.4rem;
   }
 }
