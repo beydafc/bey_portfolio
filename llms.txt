@@ -8,7 +8,7 @@ Sitio oficial con proyectos reales de e-commerce, páginas web corporativas, sof
 
 - [Inicio](https://www.beydafentanes.com/): Portafolio completo — servicios, proyectos, sobre mí y contacto
 - [Servicios](https://www.beydafentanes.com/#servicios): Desarrollo web, diseño UI/UX, branding y soluciones digitales a la medida
-- [Proyectos](https://www.beydafentanes.com/#proyectos): Casos destacados (Viñedo de Piedra, CADEQ, Shawarma House, YEYO, V&P, Wisecost, Almasol)
+- [Proyectos](https://www.beydafentanes.com/#proyectos): Casos destacados (Viñedo de Piedra, ANB Producciones, CADEQ, Shawarma House, YEYO, V&P, Wisecost, Almasol)
 - [Quiénes somos](https://www.beydafentanes.com/#nosotros): Enfoque, stack y capacidades (full-stack, Rails/Flutter, IA, Figma, SEO)
 - [Contacto](https://www.beydafentanes.com/#contacto): Formulario y datos de contacto
 
